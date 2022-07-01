@@ -49,19 +49,8 @@ const displayAllTodos = () => {
 		.catch(err => console.log(err));
 }
 
+// Initial display of all Todos
 displayAllTodos();
-
-// const addTodo = () => {
-// 	const id = idField.value;
-// 	const timestamp = timeField.value;
-// 	const body = bodyField.value;
-// 	const status = "Not complete";
-// 	Todos.push({id,timestamp, body, status})
-// 	idField.value = "";
-// 	timeField.value = "";
-// 	bodyField.value = "";
-// 	displayAllTodos();
-// }
 
 const addTodo = () => {
 	axios
@@ -91,7 +80,6 @@ const editTodo = (itemId) => {
 	idField.value = id;
 	timeField.value = getTimeStamp();
 	bodyField.value = body;
-
 }
 
 const generateID = () => {
@@ -128,7 +116,12 @@ const updateTodo = () => {
 				.patch(`http://localhost:8000/posts/${todo.id}`, {
 					body: bodyField.value,
 					timestamp: timeField.value,
-				}).then(res => console.log(res.data)).catch(err => console.log(err));
+				})
+				.then(res => {
+					console.log(res.data)
+					displayAllTodos();
+				})
+				.catch(err => console.log(err));
 			return todo;
 		} else {
 			return todo;
@@ -140,8 +133,6 @@ const updateTodo = () => {
 	timeField.value = "";
 	bodyField.value = "";
 
-	displayAllTodos();
-
 	updateTodoButton.style.display = "none"
 	createTodoButton.style.display = "block"
 }
@@ -151,14 +142,18 @@ const markTodoAsComplete = (itemId) => {
 		if (todo.id === itemId) {
 			axios.patch(`http://localhost:8000/posts/${todo.id}`, {
 				status: "Complete",
-			}).then(res => console.log(res.data)).catch(err => console.log(err));
+			})
+			.then(res => {
+				console.log(res.data)
+				displayAllTodos();
+			})
+			.catch(err => console.log(err));
 			return todo;
 		} else {
 			return todo;
 		}
 	})
 	Todos = todos;
-	displayAllTodos();
 }
 
 todoList.addEventListener('click', (e) => {

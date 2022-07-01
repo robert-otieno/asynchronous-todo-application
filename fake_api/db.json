@@ -4,19 +4,19 @@
       "id": "8fxncr-abgq-4ii8-80ux67",
       "timestamp": "2022-7-1 7:53:5",
       "body": "Have quiet time",
-      "status": "Not complete"
+      "status": "Complete"
     },
     {
       "id": "nfatzg-vmwx-rhvp-e3cne9",
-      "timestamp": "2022-7-1 8:18:44",
-      "body": "Get to town by 8:45am",
-      "status": "Not complete"
+      "timestamp": "2022-7-1 9:3:51",
+      "body": "Get to town by 9:30am",
+      "status": "Complete"
     },
     {
       "id": "3zdq5k-d9t5-wltw-8yu0r4",
       "timestamp": "2022-7-1 8:25:30",
       "body": "Get to Hallmark and pick files",
-      "status": "Not complete"
+      "status": "Complete"
     }
   ]
 }
