@@ -15,11 +15,11 @@ let Todos = [];
 
 const displayAllTodos = () => {
 	todoList.innerHTML = ""
-	axios.get("http://localhost:3000/posts").then(res => {	
-		Todos = [...res.data]
-		if (Todos.length == 0) {
-
-			todoList.innerHTML += `
+	axios
+		.get("http://localhost:8000/posts").then(res => {
+			Todos = [...res.data]
+			if (Todos.length == 0) {
+				todoList.innerHTML += `
 			<div class = "empty-todo">
 			<img src="./assets/images/undraw_empty_xct9.png" alt="empty image" style="width: 50%;">
 			<br>
@@ -27,10 +27,10 @@ const displayAllTodos = () => {
 			<br>
 			</div>
 			`;
-		} else {		
-			for(let key in Todos){
-				let todo = Todos[key];
-				todoList.innerHTML += `
+			} else {
+				for (let key in Todos) {
+					let todo = Todos[key];
+					todoList.innerHTML += `
 				<div data-id="${todo.id}" class="todo-content-item">
 					<span class="todo-id">▪️ ${todo.id} ▪️</span>
 					${todo.status === "Complete" ? `<span style="text-decoration: line-through;" class="todo-text">${todo.body}</span>` : `<span class="todo-text">${todo.body}</span>`}
@@ -43,11 +43,11 @@ const displayAllTodos = () => {
 					</div>
 				</div>
 				`;
-			};
-		}
-	}).catch(err => console.log(err));
-
-	console.log(Todos);
+				};
+			}
+		})
+		.then(() => console.log(Todos))
+		.catch(err => console.log(err));
 }
 
 displayAllTodos();
@@ -69,13 +69,20 @@ const addTodo = () => {
 	const timestamp = timeField.value;
 	const body = bodyField.value;
 	const status = "Not complete";
-	axios
-    .post('http://localhost:3000/posts', {id,timestamp, body, status})
-    .then(res => console.log(res.data))
-    .catch(err => console.error(err));
+
+	axios.post('http://localhost:8000/posts', {
+			id,
+			timestamp,
+			body,
+			status
+		})
+		.then(res => console.log(res.data))
+		.catch(err => console.error(err));
+
 	idField.value = "";
 	timeField.value = "";
 	bodyField.value = "";
+
 	displayAllTodos();
 }
 
@@ -87,6 +94,7 @@ const editTodo = (itemId) => {
 	idField.value = id;
 	timeField.value = getTimeStamp();
 	bodyField.value = body;
+	
 }
 
 const generateID = () => {
@@ -106,11 +114,23 @@ const addNewTodo = () => {
 }
 
 const deleteTodo = (itemId) => {
+	axios
+	.delete(`http://localhost:8000/posts/${itemId}`)
+	.then(res => console.log(res.data))
+	.catch(err => console.log(err));
+
 	Todos = Todos.filter(todo => todo.id != itemId);
+
 	displayAllTodos();
 }
 
 const updateTodo = () => {
+	
+		// axios
+		// .patch(`http://localhost:8000/posts/${itemId.id}`, {
+		// 	body: bodyField.value,
+		// 	timestamp: timeField.value,
+		// }).then(res => console.log(res.data)).catch(err => console.log(err));
 	const todos = Todos.map(todo=>{
 		if(todo.id === idField.value){
 			todo.status = "Not complete";
@@ -121,11 +141,14 @@ const updateTodo = () => {
 			return todo;
 		}
 	})
+
 	Todos = todos;
 	idField.value = "";
 	timeField.value = "";
 	bodyField.value = "";
+
 	displayAllTodos();
+
 	updateTodoButton.style.display = "none"
 	createTodoButton.style.display = "block"
 }
@@ -150,7 +173,7 @@ todoList.addEventListener('click', (e)=>{
 	if(e.target.classList.contains('fa-edit')){
 	  editTodo(id);
 	}
-	
+
 	if(e.target.classList.contains('fa-trash-alt')) {
 	  deleteTodo(id);
  	}
