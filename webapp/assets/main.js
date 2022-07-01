@@ -126,16 +126,16 @@ const deleteTodo = (itemId) => {
 
 const updateTodo = () => {
 	
-		// axios
-		// .patch(`http://localhost:8000/posts/${itemId.id}`, {
-		// 	body: bodyField.value,
-		// 	timestamp: timeField.value,
-		// }).then(res => console.log(res.data)).catch(err => console.log(err));
 	const todos = Todos.map(todo=>{
 		if(todo.id === idField.value){
-			todo.status = "Not complete";
-			todo.body = bodyField.value;
-			todo.timestamp = timeField.value;
+			axios
+			.patch(`http://localhost:8000/posts/${todo.id}`, {
+				body: bodyField.value,
+				timestamp: timeField.value,
+			}).then(res => console.log(res.data)).catch(err => console.log(err));
+			// todo.status = "Not complete";
+			// todo.body = bodyField.value;
+			// todo.timestamp = timeField.value;
 			return todo;
 		}else{
 			return todo;
