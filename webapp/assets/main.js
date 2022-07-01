@@ -133,9 +133,6 @@ const updateTodo = () => {
 				body: bodyField.value,
 				timestamp: timeField.value,
 			}).then(res => console.log(res.data)).catch(err => console.log(err));
-			// todo.status = "Not complete";
-			// todo.body = bodyField.value;
-			// todo.timestamp = timeField.value;
 			return todo;
 		}else{
 			return todo;
@@ -156,7 +153,9 @@ const updateTodo = () => {
 const markTodoAsComplete = (itemId) => {
 	const todos = Todos.map(todo=>{
 		if(todo.id === itemId){
-			todo.status = "Complete";
+			axios.patch(`http://localhost:8000/posts/${todo.id}`, {
+				status: "Complete",
+			}).then(res => console.log(res.data)).catch(err => console.log(err));
 			return todo;
 		}else{
 			return todo;
