@@ -62,7 +62,7 @@ const addTodo = () => {
 			status: "Not complete",
 		})
 		.then(res => {
-			console.log(res.data)
+			Todos = [...res.data]
 			displayAllTodos();
 		})
 		.catch(err => console.error(err));
@@ -103,7 +103,7 @@ const deleteTodo = (itemId) => {
 	axios
 		.delete(`http://localhost:8000/posts/${itemId}`)
 		.then(res => {
-			console.log(res.data)
+			Todos = [...res.data]
 			displayAllTodos()
 		})
 		.catch(err => console.log(err));
@@ -116,7 +116,7 @@ const updateTodo = () => {
 			timestamp: timeField.value,
 		})
 		.then(res => {
-			console.log(`I fired:`, res.data)
+			Todos = [...res.data]
 			displayAllTodos();
 		})
 		.catch(err => console.log(err));
