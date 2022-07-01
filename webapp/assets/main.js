@@ -16,7 +16,8 @@ let Todos = [];
 const displayAllTodos = () => {
 	// todoList.innerHTML = ""
 	axios
-		.get("http://localhost:8000/posts").then(res => {
+		.get("http://localhost:8000/posts")
+		.then(res => {
 			Todos = [...res.data]
 			if (Todos.length == 0) {
 				todoList.innerHTML += `
@@ -46,8 +47,8 @@ const displayAllTodos = () => {
 				};
 			}
 		})
+		.catch(err => console.log(err))
 		.then(() => console.log(`GET: Here's the list of todos`, Todos))
-		.catch(err => console.log(err));
 }
 
 // Initial display of all Todos
@@ -62,7 +63,7 @@ const addTodo = () => {
 			status: "Not complete",
 		})
 		.then(res => {
-			Todos = [...res.data]
+			console.log(res.data);
 			displayAllTodos();
 		})
 		.catch(err => console.error(err));
@@ -103,8 +104,8 @@ const deleteTodo = (itemId) => {
 	axios
 		.delete(`http://localhost:8000/posts/${itemId}`)
 		.then(res => {
-			Todos = [...res.data]
-			displayAllTodos()
+			console.log(res.data);
+			displayAllTodos();
 		})
 		.catch(err => console.log(err));
 }
@@ -116,7 +117,7 @@ const updateTodo = () => {
 			timestamp: timeField.value,
 		})
 		.then(res => {
-			Todos = [...res.data]
+			console.log(res.data);
 			displayAllTodos();
 		})
 		.catch(err => console.log(err));
@@ -134,7 +135,7 @@ const markTodoAsComplete = (itemId) => {
 			status: "Complete",
 		})
 		.then(res => {
-			console.log(res.data)
+			console.log(res.data);
 			displayAllTodos();
 		})
 		.catch(err => console.log(err));
