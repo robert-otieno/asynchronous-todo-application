@@ -71,11 +71,11 @@ const addTodo = () => {
 	const status = "Not complete";
 
 	axios.post('http://localhost:8000/posts', {
-			id,
-			timestamp,
-			body,
-			status
-		})
+		id,
+		timestamp,
+		body,
+		status
+	})
 		.then(res => console.log(res.data))
 		.catch(err => console.error(err));
 
@@ -89,12 +89,13 @@ const addTodo = () => {
 const editTodo = (itemId) => {
 	createTodoButton.style.display = "none"
 	updateTodoButton.style.display = "block"
-	const {id, timestamp, status, body} = Todos.filter(todo => todo.id == itemId)[0];
+
+	const { id, timestamp, status, body } = Todos.filter(todo => todo.id == itemId)[0];
 
 	idField.value = id;
 	timeField.value = getTimeStamp();
 	bodyField.value = body;
-	
+
 }
 
 const generateID = () => {
@@ -115,9 +116,9 @@ const addNewTodo = () => {
 
 const deleteTodo = (itemId) => {
 	axios
-	.delete(`http://localhost:8000/posts/${itemId}`)
-	.then(res => console.log(res.data))
-	.catch(err => console.log(err));
+		.delete(`http://localhost:8000/posts/${itemId}`)
+		.then(res => console.log(res.data))
+		.catch(err => console.log(err));
 
 	Todos = Todos.filter(todo => todo.id != itemId);
 
@@ -125,16 +126,15 @@ const deleteTodo = (itemId) => {
 }
 
 const updateTodo = () => {
-	
-	const todos = Todos.map(todo=>{
-		if(todo.id === idField.value){
+	const todos = Todos.map(todo => {
+		if (todo.id === idField.value) {
 			axios
-			.patch(`http://localhost:8000/posts/${todo.id}`, {
-				body: bodyField.value,
-				timestamp: timeField.value,
-			}).then(res => console.log(res.data)).catch(err => console.log(err));
+				.patch(`http://localhost:8000/posts/${todo.id}`, {
+					body: bodyField.value,
+					timestamp: timeField.value,
+				}).then(res => console.log(res.data)).catch(err => console.log(err));
 			return todo;
-		}else{
+		} else {
 			return todo;
 		}
 	})
@@ -151,13 +151,13 @@ const updateTodo = () => {
 }
 
 const markTodoAsComplete = (itemId) => {
-	const todos = Todos.map(todo=>{
-		if(todo.id === itemId){
+	const todos = Todos.map(todo => {
+		if (todo.id === itemId) {
 			axios.patch(`http://localhost:8000/posts/${todo.id}`, {
 				status: "Complete",
 			}).then(res => console.log(res.data)).catch(err => console.log(err));
 			return todo;
-		}else{
+		} else {
 			return todo;
 		}
 	})
@@ -165,20 +165,20 @@ const markTodoAsComplete = (itemId) => {
 	displayAllTodos();
 }
 
-todoList.addEventListener('click', (e)=>{
+todoList.addEventListener('click', (e) => {
 
 	const id = e.target.parentElement.parentElement.dataset.id;
 
-	if(e.target.classList.contains('fa-edit')){
-	  editTodo(id);
+	if (e.target.classList.contains('fa-edit')) {
+		editTodo(id);
 	}
 
-	if(e.target.classList.contains('fa-trash-alt')) {
-	  deleteTodo(id);
- 	}
+	if (e.target.classList.contains('fa-trash-alt')) {
+		deleteTodo(id);
+	}
 
-	if(e.target.classList.contains('fa-check')){
-	  markTodoAsComplete(id);
+	if (e.target.classList.contains('fa-check')) {
+		markTodoAsComplete(id);
 	}
 })
 
