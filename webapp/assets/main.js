@@ -16,9 +16,9 @@ let Todos = [];
 const displayAllTodos = () => {
 	todoList.innerHTML = ""
 	axios.get("http://localhost:8000/posts").then(res => {
-			Todos = [...res.data]
-			if (Todos.length == 0) {
-				todoList.innerHTML += `
+		Todos = [...res.data]
+		if (Todos.length == 0) {
+			todoList.innerHTML += `
 			<div class = "empty-todo">
 			<img src="./assets/images/undraw_empty_xct9.png" alt="empty image" style="width: 50%;">
 			<br>
@@ -26,10 +26,10 @@ const displayAllTodos = () => {
 			<br>
 			</div>
 			`;
-			} else {
-				for (let key in Todos) {
-					let todo = Todos[key];
-					todoList.innerHTML += `
+		} else {
+			for (let key in Todos) {
+				let todo = Todos[key];
+				todoList.innerHTML += `
 				<div data-id="${todo.id}" class="todo-content-item">
 					<span class="todo-id">▪️ ${todo.id} ▪️</span>
 					${todo.status === "Complete" ? `<span style="text-decoration: line-through;" class="todo-text">${todo.body}</span>` : `<span class="todo-text">${todo.body}</span>`}
@@ -42,9 +42,9 @@ const displayAllTodos = () => {
 					</div>
 				</div>
 				`;
-				};
-			}
-		})
+			};
+		}
+	})
 		.then(() => console.log(`GET: Here's the list of todos`, Todos))
 		.catch(err => console.log(err));
 }
@@ -101,34 +101,24 @@ const addNewTodo = () => {
 const deleteTodo = (itemId) => {
 	axios
 		.delete(`http://localhost:8000/posts/${itemId}`)
-		.then(res => console.log(res.data))
+		.then(res => {
+			console.log(res.data)
+			displayAllTodos()
+		})
 		.catch(err => console.log(err));
-
-	Todos = Todos.filter(todo => todo.id != itemId);
-
-	displayAllTodos();
 }
 
 const updateTodo = () => {
-	const todos = Todos.map(todo => {
-		if (todo.id === idField.value) {
-			axios
-				.patch(`http://localhost:8000/posts/${todo.id}`, {
-					body: bodyField.value,
-					timestamp: timeField.value,
-				})
-				.then(res => {
-					console.log(res.data)
-					displayAllTodos();
-				})
-				.catch(err => console.log(err));
-			return todo;
-		} else {
-			return todo;
-		}
-	})
-
-	Todos = todos;
+	axios
+		.patch(`http://localhost:8000/posts/${idField.value}`, {
+			body: bodyField.value,
+			timestamp: timeField.value,
+		})
+		.then(res => {
+			console.log(res.data)
+			displayAllTodos();
+		})
+		.catch(err => console.log(err));
 	idField.value = "";
 	timeField.value = "";
 	bodyField.value = "";
@@ -138,22 +128,15 @@ const updateTodo = () => {
 }
 
 const markTodoAsComplete = (itemId) => {
-	const todos = Todos.map(todo => {
-		if (todo.id === itemId) {
-			axios.patch(`http://localhost:8000/posts/${todo.id}`, {
-				status: "Complete",
-			})
-			.then(res => {
-				console.log(res.data)
-				displayAllTodos();
-			})
-			.catch(err => console.log(err));
-			return todo;
-		} else {
-			return todo;
-		}
-	})
-	Todos = todos;
+	axios
+		.patch(`http://localhost:8000/posts/${itemId}`, {
+			status: "Complete",
+		})
+		.then(res => {
+			console.log(res.data)
+			displayAllTodos();
+		})
+		.catch(err => console.log(err));
 }
 
 todoList.addEventListener('click', (e) => {
