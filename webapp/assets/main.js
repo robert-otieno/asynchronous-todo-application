@@ -15,8 +15,7 @@ let Todos = [];
 
 const displayAllTodos = () => {
 	todoList.innerHTML = ""
-	axios
-		.get("http://localhost:8000/posts").then(res => {
+	axios.get("http://localhost:8000/posts").then(res => {
 			Todos = [...res.data]
 			if (Todos.length == 0) {
 				todoList.innerHTML += `
@@ -46,7 +45,7 @@ const displayAllTodos = () => {
 				};
 			}
 		})
-		.then(() => console.log(Todos))
+		.then(() => console.log(`GET: Here's the list of todos`, Todos))
 		.catch(err => console.log(err));
 }
 
@@ -65,25 +64,22 @@ displayAllTodos();
 // }
 
 const addTodo = () => {
-	const id = idField.value;
-	const timestamp = timeField.value;
-	const body = bodyField.value;
-	const status = "Not complete";
-
-	axios.post('http://localhost:8000/posts', {
-		id,
-		timestamp,
-		body,
-		status
-	})
-		.then(res => console.log(res.data))
+	axios
+		.post('http://localhost:8000/posts', {
+			id: idField.value,
+			timestamp: timeField.value,
+			body: bodyField.value,
+			status: "Not complete",
+		})
+		.then(res => {
+			console.log(res.data)
+			displayAllTodos();
+		})
 		.catch(err => console.error(err));
 
 	idField.value = "";
 	timeField.value = "";
 	bodyField.value = "";
-
-	displayAllTodos();
 }
 
 const editTodo = (itemId) => {
