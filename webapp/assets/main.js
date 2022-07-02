@@ -47,7 +47,20 @@ const displayAllTodos = () => {
 				};
 			}
 		})
-		.catch(err => console.log(err))
+		.catch(err => {
+			if (err.request) {
+				todoList.innerHTML += `
+			<div class = "empty-todo">
+			<img src="./assets/images/undraw_server_down_s4lk.png" alt="empty image" style="width: 50%;">
+			<br>
+			<span style="font-family: 'Fira Sans', sans-serif; font-size: 20px; font-weight: bold;">Looks Like the Server is Down - Start it on localhost Port: 8000...</span>
+			<br>
+			</div>
+			`;
+			} else {
+				console.log(err)
+			}
+		})
 		.then(() => console.log(`GET: Here's the list of todos`, Todos))
 }
 
