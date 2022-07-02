@@ -136,7 +136,7 @@ const markTodoAsComplete = (itemId) => {
 		})
 		.then(res => {
 			console.log(res.data);
-			// displayAllTodos();
+			displayAllTodos();
 		})
 		.catch(err => console.log(err));
 }
