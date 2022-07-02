@@ -14,7 +14,7 @@ let Todos = [];
 // REST api
 
 const displayAllTodos = () => {
-	todoList.innerHTML = ""
+	todoList.innerHTML = "";
 	axios
 		.get("http://localhost:8000/posts")
 		.then(res => {
@@ -22,7 +22,7 @@ const displayAllTodos = () => {
 			if (Todos.length == 0) {
 				todoList.innerHTML += `
 			<div class = "empty-todo">
-			<img src="./assets/images/undraw_empty_xct9.png" alt="empty image" style="width: 50%;">
+			<img src="./assets/images/undraw_empty_xct9.png" alt="empty image" style="width: 100%;">
 			<br>
 			<span style="font-family: 'Fira Sans', sans-serif; font-size: 20px; font-weight: bold;">There are no todos yet...</span>
 			<br>
@@ -50,13 +50,18 @@ const displayAllTodos = () => {
 		.catch(err => {
 			if (err.request) {
 				todoList.innerHTML += `
-			<div class = "empty-todo">
-			<img src="./assets/images/undraw_server_down_s4lk.png" alt="empty image" style="width: 50%;">
-			<br>
-			<span style="font-family: 'Fira Sans', sans-serif; font-size: 20px; font-weight: bold;">Looks Like the Server is Down - Start it on localhost Port: 8000...</span>
-			<br>
-			</div>
-			`;
+				<div class = "empty-todo">
+					<img src="./assets/images/undraw_server_down_s4lk.png" alt="empty image" style="width: 100%; padding-bottom: 2rem;">
+					<br>
+					<span style="font-family: 'Fira Sans', sans-serif; font-size: 20px; font-weight: bold;">Looks Like the Server is Down - Start it on localhost Port: 8000...</span>
+					<br>
+				</div>
+				`;
+				document.querySelectorAll('.todo-content')[1].innerHTML = `
+				<div class = "empty-todo">
+					<img src="./assets/images/undraw_To_do_list_re_9nt7.png" alt="empty image" style="width: 100%; padding-bottom: 2rem;">
+				</div>
+				`;
 			} else {
 				console.log(err)
 			}
