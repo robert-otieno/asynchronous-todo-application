@@ -14,7 +14,7 @@ let Todos = [];
 // REST api
 
 const displayAllTodos = () => {
-	// todoList.innerHTML = ""
+	todoList.innerHTML = ""
 	axios
 		.get("http://localhost:8000/posts")
 		.then(res => {
@@ -64,7 +64,7 @@ const addTodo = () => {
 		})
 		.then(res => {
 			console.log(res.data);
-			// displayAllTodos();
+			displayAllTodos();
 		})
 		.catch(err => console.error(err));
 
@@ -105,7 +105,7 @@ const deleteTodo = (itemId) => {
 		.delete(`http://localhost:8000/posts/${itemId}`)
 		.then(res => {
 			console.log(res.data);
-			// displayAllTodos();
+			displayAllTodos();
 		})
 		.catch(err => console.log(err));
 }
@@ -118,7 +118,7 @@ const updateTodo = () => {
 		})
 		.then(res => {
 			console.log(res.data);
-			// displayAllTodos();
+			displayAllTodos();
 		})
 		.catch(err => console.log(err));
 	idField.value = "";
