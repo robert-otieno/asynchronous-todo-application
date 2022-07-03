@@ -57,11 +57,6 @@ const displayAllTodos = () => {
 					<br>
 				</div>
 				`;
-				// document.querySelectorAll('.todo-content')[1].innerHTML = `
-				// <div class = "empty-todo">
-				// 	<img src="./assets/images/undraw_To_do_list_re_9nt7.png" alt="empty image" style="width: 100%; padding-bottom: 2rem;">
-				// </div>
-				// `;
 			} else {
 				console.log(err)
 			}

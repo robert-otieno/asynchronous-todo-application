@@ -1,5 +1,7 @@
 # asynchronous-todo-application
 
+![To do App](./webapp/assets/images/Asynchronous_JavaScript.png)
+
 clone the boilerplate code from this repository: https://github.com/apprenticecloud/asynchronous-todo-application
 
 In this assignment you are supposed to convert the todo application to utilize a fake json server and asynchronous api calls. Resources on how to do that are already in the projects module that is the (asynchronous communication - advanced). Make sure you go through the resources. __This will ease in the pressure that may arise if you have never used axios or json-server before__.
