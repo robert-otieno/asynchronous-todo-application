@@ -1,5 +1,12 @@
 {
-  "posts": [],
+  "posts": [
+    {
+      "id": "drtmtz-cbxe-chsc-7q05tr",
+      "timestamp": "2022-7-3 19:52:43",
+      "body": "Prepare Dinner",
+      "status": "Not complete"
+    }
+  ],
   "comments": [],
   "profile": {
     "name": "typicode"
