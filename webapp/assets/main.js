@@ -53,15 +53,15 @@ const displayAllTodos = () => {
 				<div class = "empty-todo">
 					<img src="./assets/images/undraw_server_down_s4lk.png" alt="empty image" style="width: 100%; padding-bottom: 2rem;">
 					<br>
-					<span style="font-family: 'Fira Sans', sans-serif; font-size: 20px; font-weight: bold;">Looks Like the Server is Down - Start it on localhost Port: 8000...</span>
+					<span style="font-family: 'Fira Sans', sans-serif; font-size: 20px; font-weight: bold;">Looks like your server isn't running on localhost port:8000</span>
 					<br>
 				</div>
 				`;
-				document.querySelectorAll('.todo-content')[1].innerHTML = `
-				<div class = "empty-todo">
-					<img src="./assets/images/undraw_To_do_list_re_9nt7.png" alt="empty image" style="width: 100%; padding-bottom: 2rem;">
-				</div>
-				`;
+				// document.querySelectorAll('.todo-content')[1].innerHTML = `
+				// <div class = "empty-todo">
+				// 	<img src="./assets/images/undraw_To_do_list_re_9nt7.png" alt="empty image" style="width: 100%; padding-bottom: 2rem;">
+				// </div>
+				// `;
 			} else {
 				console.log(err)
 			}
